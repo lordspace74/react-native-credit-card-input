@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from "react";
 import ReactNative, {
-  NativeModules,
+  // NativeModules,
   View,
   Text,
   StyleSheet,
@@ -72,15 +72,17 @@ export default class CreditCardInput extends Component {
   _focus = field => {
     if (!field) return;
 
-    const scrollResponder = this.refs.Form.getScrollResponder();
-    const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
+    this.refs[field].focus();
 
-    NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
-      e => { throw e; },
-      x => {
-        scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
-        this.refs[field].focus();
-      });
+    // const scrollResponder = this.refs.Form.getScrollResponder();
+    // const nodeHandle = ReactNative.findNodeHandle(this.refs[field]);
+
+    // NativeModules.UIManager.measureLayoutRelativeToParent(nodeHandle,
+    //   e => { throw e; },
+    //   x => {
+    //     scrollResponder.scrollTo({ x: Math.max(x - PREVIOUS_FIELD_OFFSET, 0), animated: true });
+    //     this.refs[field].focus();
+    //   });
   }
 
   _inputProps = field => {
@@ -133,11 +135,12 @@ export default class CreditCardInput extends Component {
             style={s.form}>
           <CCInput {...this._inputProps("number")}
               containerStyle={[s.inputContainer, inputContainerStyle, { flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderTopWidth: 1, borderBottomWidth: 1,borderColor: '#e3e3e3', width: CARD_NUMBER_INPUT_WIDTH }]} />
-          <CCInput {...this._inputProps("expiry")}
-              containerStyle={[s.inputContainer, inputContainerStyle,{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#e3e3e3', width: CARD_NUMBER_INPUT_WIDTH }]} />
-          { requiresCVC &&
+          <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
+            <CCInput {...this._inputProps("expiry")}
+                containerStyle={[s.inputContainer, inputContainerStyle,{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: '#e3e3e3', width: CARD_NUMBER_INPUT_WIDTH / 2 }]} />
             <CCInput {...this._inputProps("cvc")}
-                containerStyle={[s.inputContainer, inputContainerStyle,{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1,borderColor: '#e3e3e3', width: CARD_NUMBER_INPUT_WIDTH }]} /> }
+                containerStyle={[s.inputContainer, inputContainerStyle,{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 1,borderColor: '#e3e3e3', width: CARD_NUMBER_INPUT_WIDTH / 2 }]} />
+          </View>
           { requiresName &&
             <CCInput {...this._inputProps("name")}
                 keyboardType="default"
@@ -154,16 +157,16 @@ export default class CreditCardInput extends Component {
 CreditCardInput.defaultProps = {
   cardViewSize: {},
   labels: {
-    name: "Cardholder's name",
-    number: "Card Number",
-    expiry: "Expiry",
-    cvc: "CVC",
-    postalCode: "Postal Code",
+    name: "",
+    number: "",
+    expiry: "",
+    cvc: "",
+    postalCode: "",
   },
   placeholders: {
     name: "Full Name",
     number: "1234 5678 1234 5678",
-    expiry: "MM/YY",
+    expiry: "MM/ÅÅ",
     cvc: "CVC",
     postalCode: "34567",
   },
