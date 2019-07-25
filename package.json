@@ -34,7 +34,7 @@
   "homepage": "https://github.com/lordspace74/react-native-credit-card-input#readme",
   "dependencies": {
     "card-validator": "^2.2.0",
-    "react-native-flip-card": "^3.3.0",
+    "react-native-flip-card": "^3.5.5",
     "lodash.compact": "^3.0.1",
     "lodash.every": "^4.6.0",
     "lodash.pick": "^4.4.0",
